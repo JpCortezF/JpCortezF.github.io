@@ -1,6 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
-html { scroll-behavior: smooth; }
+html { 
+  scroll-behavior: smooth;
+  cursor: url("/cursor.svg") 24 24, auto;
+}
+
+a, button, [role="button"] {
+cursor: url("/cursor-pointer.svg") 24 24, pointer;
+}
+/* 
+.skill-card {
+  cursor: pointer;
+}
+*/
+
+.caret{
+  display:inline-block;
+  width: 10px;
+  margin-left: 2px;
+  border-right: 2px solid rgba(255,255,255,0.85);
+  animation: caretBlink 1s steps(2, start) infinite;
+  height: 1em;
+  translate: 0 2px;
+}
+@keyframes caretBlink{
+  to { border-right-color: transparent; }
+}
+
 
 .reveal {
   opacity: 0;
@@ -20,4 +46,283 @@ html { scroll-behavior: smooth; }
     transition: none;
     transform: none;
   }
+}
+
+.skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 130px;
+  height: 110px;
+  border-radius: 18px;
+  padding: 14px;
+
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.skill-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+}
+
+.skill-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  transition: transform 200ms ease;
+}
+
+.skill-tile:hover .skill-icon {
+  transform: scale(1.06);
+}
+
+.skill-name {
+  color: rgba(255,255,255,0.78);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.project-card {
+  transition: transform 260ms ease, border-color 200ms ease, background 200ms ease;
+  transform-style: preserve-3d;
+}
+
+/* ahora expanded ya NO cambia layout; si querés mantener el efecto, ok */
+.project-card.is-expanded {
+  transform: rotateY(6deg);
+}
+
+/* media */
+.project-media {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  position: relative;
+}
+
+/* botón full-size para click en la imagen */
+.project-media-btn{
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+/* imagen */
+.project-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+/* hover/scale para preview */
+.project-image--hover{
+  transform: scale(1);
+  transition: transform 220ms ease, filter 220ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-media-btn:hover .project-image--hover{
+    transform: scale(1.04);
+    filter: saturate(1.05) contrast(1.03);
+  }
+
+  .project-media-btn::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(80% 80% at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,0));
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+  }
+
+  .project-media-btn:hover::after{
+    opacity: 1;
+  }
+
+  .project-media-btn:hover .project-media-hint{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* hint */
+.project-media-hint{
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.85);
+  font-size: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  pointer-events: none;
+}
+
+/* focus accesible */
+.project-media-btn:focus-visible{
+  outline: 2px solid rgba(255,255,255,.25);
+  outline-offset: 3px;
+  border-radius: 18px;
+}
+
+/* carousel (si no lo usás más, podés borrarlo sin problema) */
+.carousel .car-btn {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.9);
+  font-size: 22px;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.carousel .car-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(255,255,255,0.30);
+  background: rgba(0,0,0,0.5);
+}
+
+.carousel .car-btn:first-of-type { left: 10px; }
+.carousel .car-btn:last-of-type  { right: 10px; }
+
+.car-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.25);
+}
+
+.dot-active {
+  background: rgba(255,255,255,0.85);
+}
+
+.slide-left {
+  animation: slideLeft 260ms ease both;
+}
+
+.slide-right {
+  animation: slideRight 260ms ease both;
+}
+
+.projects-grid {
+  overflow-anchor: none;
+}
+
+.phone-frame{
+  position: relative;
+  width: min(360px, 92vw);
+  aspect-ratio: 9 / 19.5;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.35);
+  overflow: hidden;
+  box-shadow: 0 26px 70px rgba(0,0,0,.55);
+}
+
+.phone-frame::before{
+  content:"";
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width: 34%;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  z-index: 2;
+}
+
+.phone-shot{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+}
+
+.phone-nav{
+  position:absolute;
+  top:50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.40);
+  color: rgba(255,255,255,0.92);
+  font-size: 26px;
+  line-height: 0;
+  display:grid;
+  place-items:center;
+  transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
+  z-index: 3;
+}
+
+.phone-nav:hover{
+  transform: translateY(-50%) scale(1.05);
+  background: rgba(0,0,0,0.55);
+  border-color: rgba(255,255,255,0.30);
+}
+
+.phone-nav-left{ left: 10px; }
+.phone-nav-right{ right: 10px; }
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* modal */
+.modal-shell{
+  animation: modalIn .22s cubic-bezier(.2,.9,.2,1) both;
+  box-shadow: 0 30px 80px rgba(0,0,0,.60);
+}
+
+@keyframes modalIn{
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }

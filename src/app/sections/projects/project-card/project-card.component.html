@@ -1,0 +1,83 @@
+<article
+  class="project-card rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition"
+  [class.is-expanded]="p.expanded"
+>
+  <h3 class="text-white font-semibold text-lg">{{ p.name }}</h3>
+  <p class="text-white/70 mt-1">{{ p.description }}</p>
+
+  <!-- ✅ IMAGEN SIEMPRE (clic abre modal) -->
+  <div class="mt-4 project-media">
+    <button
+      type="button"
+      class="project-media-btn"
+      (click)="open.emit(p)"
+      [attr.aria-label]="'Abrir galería de ' + p.name"
+      title="Abrir"
+    >
+      <img
+        class="project-image project-image--hover"
+        [style.object-position]="p.coverPos || 'center'"
+        [src]="p.coverImage"
+        [alt]="p.name"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="project-media-hint">Ver</span>
+    </button>
+  </div>
+
+  <!-- ✅ CONTENIDO -->
+  @if (!p.expanded) {
+    <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
+      @for (b of p.bullets; track b) {
+        <li>{{ b }}</li>
+      }
+    </ul>
+  } @else {
+    @if (p.details?.length) {
+      <div class="mt-4 rounded-2xl border border-white/10 bg-black/20 p-4">
+        <p class="text-white/85 font-semibold mb-2">Detalles</p>
+        <ul class="space-y-2 text-white/70 list-disc pl-5">
+          @for (d of p.details; track d) {
+            <li>{{ d }}</li>
+          }
+        </ul>
+      </div>
+    }
+  }
+
+  <!-- ✅ Toggle -->
+  @if (p.details?.length) {
+    <button
+      type="button"
+      (click)="toggle.emit(p)"
+      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-white transition"
+    >
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 bg-black/20">
+        {{ p.expanded ? '−' : '+' }}
+      </span>
+      {{ p.expanded ? 'Ver menos' : 'Ver más' }}
+    </button>
+  }
+
+  <!-- Tags -->
+  <div class="mt-5 flex flex-wrap gap-2">
+    @for (t of p.tags; track t) {
+      <span class="text-xs text-white/70 border border-white/10 bg-black/20 px-2.5 py-1 rounded-full">
+        {{ t }}
+      </span>
+    }
+  </div>
+
+  <!-- Botones -->
+  <div class="mt-6 flex gap-3">
+    @if (p.liveUrl) {
+      <a class="rounded-full px-4 py-2 text-sm font-semibold bg-white text-black hover:bg-white/90 transition"
+        [href]="p.liveUrl" target="_blank" rel="noopener noreferrer">Demo</a>
+    }
+    @if (p.repoUrl) {
+      <a class="rounded-full px-4 py-2 text-sm font-semibold border border-white/15 text-white/80 hover:text-white hover:border-white/30 transition"
+        [href]="p.repoUrl" target="_blank" rel="noopener noreferrer">Repo</a>
+    }
+  </div>
+</article>

@@ -1,0 +1,143 @@
+<section class="max-w-5xl mx-auto">
+  <p class="text-white/50 text-sm tracking-wide mb-2">Contacto</p>
+  <h2 class="text-2xl md:text-3xl font-bold text-white mb-10">Hablemos</h2>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Card -->
+    <form
+      [formGroup]="form_contact"
+      (ngSubmit)="onSubmit()"
+      class="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7
+             shadow-[0_30px_80px_rgba(0,0,0,0.35)]"
+    >
+      <h3 class="text-white font-semibold text-lg">Mandame un mensaje</h3>
+      <p class="text-white/60 text-sm mt-1">
+        Te respondo a la brevedad.
+      </p>
+
+      <div class="mt-6 space-y-4">
+        <!-- Nombre -->
+        <div>
+          <label class="block text-white/70 text-sm mb-1">Nombre</label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Tu nombre"
+            class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white
+                   placeholder:text-white/30 outline-none
+                   focus:border-white/20 focus:ring-2 focus:ring-white/10 transition"
+          />
+          @if (invalid('name')) {
+            <p class="mt-1 text-xs text-red-300">Ingresá tu nombre (mínimo 2 caracteres).</p>
+          }
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-white/70 text-sm mb-1">Email</label>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="tu@email.com"
+            class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white
+                   placeholder:text-white/30 outline-none
+                   focus:border-white/20 focus:ring-2 focus:ring-white/10 transition"
+          />
+          @if (invalid('email')) {
+            <p class="mt-1 text-xs text-red-300">Ingresá un email válido.</p>
+          }
+        </div>
+
+        <!-- Mensaje -->
+        <div>
+          <div class="flex items-center justify-between">
+            <label class="block text-white/70 text-sm mb-1">Mensaje</label>
+            <span class="text-white/35 text-xs">
+              {{ form_contact.get('message')?.value?.length || 0 }}/1200
+            </span>
+          </div>
+
+          <textarea
+            rows="6"
+            formControlName="message"
+            placeholder="Contame qué necesitás construir…"
+            class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white
+                   placeholder:text-white/30 outline-none resize-none
+                   focus:border-white/20 focus:ring-2 focus:ring-white/10 transition"
+          ></textarea>
+
+          @if (invalid('message')) {
+            <p class="mt-1 text-xs text-red-300">
+              Escribí un mensaje (mínimo 10 caracteres).
+            </p>
+          }
+        </div>
+
+        <!-- Honeypot (oculto) -->
+        <input
+          type="text"
+          formControlName="company"
+          class="hidden"
+          tabindex="-1"
+          autocomplete="off"
+        />
+
+        <!-- Estado -->
+        @if (sendError) {
+          <div class="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-red-200 text-sm">
+            {{ sendError }}
+          </div>
+        }
+
+        @if (sentOk) {
+          <div class="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-emerald-200 text-sm">
+            Listo ✅ Mensaje enviado.
+          </div>
+        }
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          [disabled]="sending || form_contact.invalid"
+          class="w-full rounded-full px-5 py-3 text-sm font-semibold
+                 bg-white text-black hover:bg-white/90 transition
+                 disabled:opacity-40 disabled:hover:bg-white
+                 inline-flex items-center justify-center gap-2"
+        >
+          @if (!sending) {
+            Enviar mensaje
+          } @else {
+            <span class="w-4 h-4 rounded-full border-2 border-black/30 border-t-black animate-spin"></span>
+            Enviando…
+          }
+        </button>
+      </div>
+    </form>
+
+    <!-- Side info / CTA -->
+    <div class="rounded-2xl border border-white/10 bg-black/20 p-6 md:p-7">
+      <h3 class="text-white font-semibold text-lg">¿Preferís otro canal?</h3>
+      <p class="text-white/60 text-sm mt-1 mb-4">
+        También podés escribirme directo y adjuntar links o capturas.
+      </p>
+
+      <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p class="text-white/70 text-sm">Email</p>
+
+        <button
+          type="button"
+          (click)="copyEmail()"
+          class="mt-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold
+                border border-white/15 text-white/80 hover:text-white hover:border-white/30 transition"
+        >
+          Copiar email
+          <span class="text-white/40">·</span>
+        </button>
+
+        @if (copied) {
+          <p class="mt-2 text-sm text-emerald-200/90">Copiado ✅</p>
+        }
+      </div>
+    </div>
+  </div>
+</section>
