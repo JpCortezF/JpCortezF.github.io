@@ -21,7 +21,7 @@ export class ExperienceComponent {
     {
       role: 'Administrador de Base de Datos SQL',
       company: 'Banco Nación',
-      period: '06/2024 - 01/2026',
+      period: '06/2024 - Actualidad',
       bullets: [
         'Administración, mantenimiento y optimización de bases de datos SQL Server.',
         'Automatización de tareas con T-SQL y SQL Server Agent Jobs.',

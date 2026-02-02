@@ -26,7 +26,5 @@ export type Project = {
 })
 export class ProjectCardComponent {
   @Input({ required: true }) p!: Project;
-
   @Output() open = new EventEmitter<Project>();
-  @Output() toggle = new EventEmitter<Project>();
 }

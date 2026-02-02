@@ -10,10 +10,7 @@
       <app-project-card 
         [p]="p"
         (open)="openProject($event)"
-        (toggle)="toggleDetails($event)"
       />
-    } @empty {
-      <p class="text-white/60">Todavía no hay proyectos para mostrar.</p>
     }
   </div>
 
@@ -38,22 +35,21 @@
       type="button"
       (click)="nextPage()"
       [disabled]="page >= totalPages - 1"
-      class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold
-             bg-white text-black hover:bg-white/90 transition
-             disabled:opacity-30 disabled:hover:bg-white"
+      class="cta-border inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold
+            text-white transition disabled:opacity-30"
     >
       Ver más proyectos <span class="text-lg leading-none">&gt;</span>
     </button>
   </div>
 </div>
 
-
-<!-- ✅ MODAL PRO (click en imagen) -->
 @if (modalOpen && selectedProject) {
   <div
     class="fixed inset-0 z-50 grid place-items-center px-4 py-6 bg-black/60 backdrop-blur-md"
     role="dialog"
     aria-modal="true"
+    tabindex="0"
+    (keydown.escape)="closeModal()"
     (click)="closeModal()"
   >
     <div

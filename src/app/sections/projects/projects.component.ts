@@ -39,10 +39,6 @@ export class ProjectsComponent {
   modalOpen = false;
   selectedProject: Project | null = null;
 
-  toggleDetails(p: any) {
-    p.expanded = !p.expanded;
-  }
-
   nextPage(ev?: Event) {
     if (this.page >= this.totalPages - 1) return;
 
@@ -81,23 +77,26 @@ export class ProjectsComponent {
   }
 
   openProject(p: Project) {
-    // Asegura índice del carrusel
-    if (p.gallery?.length && (p.galleryIndex === undefined || p.galleryIndex === null)) {
-      p.galleryIndex = 0;
+    const copy = { ...p };
+
+    if (copy.gallery?.length && (copy.galleryIndex === undefined || copy.galleryIndex === null)) {
+      copy.galleryIndex = 0;
     }
 
-    this.selectedProject = p;
+    this.selectedProject = copy;
     this.modalOpen = true;
 
-    // Scroll lock
     document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      (document.querySelector('[role="dialog"]') as HTMLElement | null)?.focus();
+    }, 0);
   }
 
   closeModal() {
     this.modalOpen = false;
     this.selectedProject = null;
 
-    // Restore scroll
     document.body.style.overflow = '';
   }
 
@@ -175,7 +174,7 @@ export class ProjectsComponent {
       name: 'Toque Gourmet',
       description: 'Sitio institucional corporativo (freelance).',
       coverImage: '/toque_gourmet.webp',
-      gallery: ['/toque_gourmet.webp'],
+      gallery: ['toque_gourmet.webp', 'inicio_tg.png', 'servicios_tg.png', 'nosotros_tg.png', 'contacto_tg.png'],
       bullets: ['Angular + Tailwind', 'Hosting/servicios con Firebase', 'Responsive y optimización mobile'],
       details: [
         'Sitio institucional orientado a conversión: estructura clara + llamadas a la acción.',
@@ -192,7 +191,7 @@ export class ProjectsComponent {
       name: 'Clínica Online',
       description: 'Web app para gestión completa de un centro de salud: turnos, roles y seguimiento clínico.',
       coverImage: '/clinica_online.webp',
-      gallery: ['/clinica_online.webp', '/solicitar_turno.webp', '/mis_turnos.webp'],
+      gallery: ['/clinica_online.webp', '/solicitar_turno.webp', '/mis_turnos.webp', 'horarios.webp', 'historia_clinica.png', 'log_ingresos.png'],
       bullets: [
         'Roles: Paciente, Especialista y Admin.',
         'Turnos con validaciones y flujo de estados (aceptar/rechazar/cancelar).',
@@ -232,13 +231,13 @@ export class ProjectsComponent {
       tags: ['Angular', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind'],
       expanded: false,
       repoUrl: 'https://github.com/JpCortezF/Clinica-Online-UTN',
-      liveUrl: 'https://clinica-online-juanpcortez.vercel.app/',
+      liveUrl: 'https://clinica-online-psi.vercel.app/',
     },
     {
       name: 'Simulador SUBE',
       description: 'Aplicación de escritorio que simula un sistema de gestión de viajes tipo SUBE, con roles y persistencia en base de datos.',
       coverImage: '/sube.webp',
-      gallery: ['/sube.webp'],
+      gallery: ['/sube.webp', 'inicio_sube.png', 'registro_sube.png', 'home_sube.png', 'tarjeta_sube.png', 'viaje_sube.gif', 'tarifa-social_sube.png'],
       bullets: [
         'Roles: Usuario y Administrador.',
         'Carga de saldo y gestión de tarjeta.',

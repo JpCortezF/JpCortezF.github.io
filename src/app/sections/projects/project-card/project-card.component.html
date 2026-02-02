@@ -1,11 +1,8 @@
-<article
-  class="project-card rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition"
-  [class.is-expanded]="p.expanded"
->
+<article class="project-card rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition">
   <h3 class="text-white font-semibold text-lg">{{ p.name }}</h3>
   <p class="text-white/70 mt-1">{{ p.description }}</p>
 
-  <!-- ✅ IMAGEN SIEMPRE (clic abre modal) -->
+  <!-- ✅ Imagen (abre modal) -->
   <div class="mt-4 project-media">
     <button
       type="button"
@@ -26,37 +23,24 @@
     </button>
   </div>
 
-  <!-- ✅ CONTENIDO -->
-  @if (!p.expanded) {
-    <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
-      @for (b of p.bullets; track b) {
-        <li>{{ b }}</li>
-      }
-    </ul>
-  } @else {
-    @if (p.details?.length) {
-      <div class="mt-4 rounded-2xl border border-white/10 bg-black/20 p-4">
-        <p class="text-white/85 font-semibold mb-2">Detalles</p>
-        <ul class="space-y-2 text-white/70 list-disc pl-5">
-          @for (d of p.details; track d) {
-            <li>{{ d }}</li>
-          }
-        </ul>
-      </div>
+  <!-- ✅ Bullets SIEMPRE -->
+  <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
+    @for (b of p.bullets; track b) {
+      <li>{{ b }}</li>
     }
-  }
+  </ul>
 
-  <!-- ✅ Toggle -->
-  @if (p.details?.length) {
+  <!-- ✅ Ver más abre modal -->
+  @if (p.details?.length || p.gallery?.length) {
     <button
       type="button"
-      (click)="toggle.emit(p)"
+      (click)="open.emit(p)"
       class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-white transition"
     >
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 bg-black/20">
-        {{ p.expanded ? '−' : '+' }}
+        +
       </span>
-      {{ p.expanded ? 'Ver menos' : 'Ver más' }}
+      Ver más
     </button>
   }
 
@@ -73,11 +57,11 @@
   <div class="mt-6 flex gap-3">
     @if (p.liveUrl) {
       <a class="rounded-full px-4 py-2 text-sm font-semibold bg-white text-black hover:bg-white/90 transition"
-        [href]="p.liveUrl" target="_blank" rel="noopener noreferrer">Demo</a>
+         [href]="p.liveUrl" target="_blank" rel="noopener noreferrer">Demo</a>
     }
     @if (p.repoUrl) {
       <a class="rounded-full px-4 py-2 text-sm font-semibold border border-white/15 text-white/80 hover:text-white hover:border-white/30 transition"
-        [href]="p.repoUrl" target="_blank" rel="noopener noreferrer">Repo</a>
+         [href]="p.repoUrl" target="_blank" rel="noopener noreferrer">Repo</a>
     }
   </div>
 </article>
