@@ -123,7 +123,7 @@ export class ProjectsComponent {
 
   projects: Project[] = [
     {
-      name: 'The Last Dance - Proyecto Final',
+      name: 'The Last Dance - Restaurant',
       description: 'App mobile full-stack para gestión de restaurant.',
       coverImage: '/the_last_dance.webp',
       coverPos: 'center 20%',
@@ -167,20 +167,44 @@ export class ProjectsComponent {
       ],
       isMobile: true,
       expanded: false,
-      tags: ['React Native', 'TypeScript', 'Supabase', 'Socket.io'],
+      tags: ['React Native', 'TypeScript', 'Supabase', 'Socket.io', 'Express'],
       repoUrl: 'https://github.com/JpCortezF/TheLastDance-2025',
     },
     {
       name: 'Toque Gourmet',
-      description: 'Sitio institucional corporativo (freelance).',
+      description: 'Sitio institucional para marca gastronómica, diseñado para conversión y contacto directo.',
       coverImage: '/toque_gourmet.webp',
-      gallery: ['toque_gourmet.webp', 'inicio_tg.png', 'servicios_tg.png', 'nosotros_tg.png', 'contacto_tg.png'],
-      bullets: ['Angular + Tailwind', 'Hosting/servicios con Firebase', 'Responsive y optimización mobile'],
+      gallery: ['/toque_gourmet.webp', '/inicio_tg.png', '/servicios_tg.png', '/nosotros_tg.png', '/contacto_tg.png'],
+      bullets: [
+        'Landing + secciones orientadas a conversión (CTA y contacto).',
+        'UI moderna + responsive (mobile-first) con Angular + Tailwind.',
+        'Deploy público en Firebase Hosting + performance optimizada.',
+      ],
+      pitch: 'Proyecto real de sitio institucional para una marca gastronómica. El objetivo fue comunicar servicios de forma clara, mantener una estética moderna y asegurar una experiencia rápida y fluida en mobile para maximizar consultas y conversiones.',
+
+      highlights: [
+        'Diseño moderno con estética profesional y foco en legibilidad.',
+        'Navegación simple y directa para guiar al usuario al contacto.',
+        'Responsive completo optimizado para celulares y pantallas pequeñas.',
+        'Deploy y disponibilidad pública en Firebase Hosting.',
+      ],
+
+      challenges: [
+        'Lograr un diseño visual atractivo sin perder claridad en la información.',
+        'Optimizar la carga de imágenes para mantener buena performance.',
+        'Mantener consistencia de estilos y componentes en todo el sitio.',
+      ],
+
+      learnings: [
+        'Mejoré la organización del frontend en componentes reutilizables.',
+        'Aprendí a priorizar UX orientada a negocio (CTA y jerarquía visual).',
+        'Reforcé el flujo de deploy y publicación de un proyecto productivo.',
+      ],
       details: [
-        'Sitio institucional orientado a conversión: estructura clara + llamadas a la acción.',
-        'Diseño responsive y optimización para mobile.',
-        'Integración de assets y contenido para el cliente (imágenes y secciones).',
-        'Deploy y hosting para disponibilidad pública.',
+        'Estructura clara para comunicar servicios y generar consultas.',
+        'Optimización visual para mobile (jerarquía, espaciados, legibilidad).',
+        'Integración de contenido/recursos del cliente (imágenes y secciones).',
+        'Publicación y mantenimiento del sitio en entorno productivo.',
       ],
       expanded: false,
       tags: ['Angular', 'TypeScript', 'Tailwind', 'Firebase'],

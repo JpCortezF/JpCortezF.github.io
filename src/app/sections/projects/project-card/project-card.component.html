@@ -1,6 +1,6 @@
-<article class="project-card rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition">
+<article class="project-card h-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition">
   <h3 class="text-white font-semibold text-lg">{{ p.name }}</h3>
-  <p class="text-white/70 mt-1">{{ p.description }}</p>
+  <p class="text-white/70 mt-1 line-clamp-2">{{ p.description }}</p>
 
   <!-- ✅ Imagen (abre modal) -->
   <div class="mt-4 project-media">
@@ -24,25 +24,27 @@
   </div>
 
   <!-- ✅ Bullets SIEMPRE -->
-  <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
-    @for (b of p.bullets; track b) {
-      <li>{{ b }}</li>
+  <div class="flex-1">
+    <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
+      @for (b of p.bullets; track b) {
+        <li>{{ b }}</li>
+      }
+    </ul>
+  
+    <!-- ✅ Ver más abre modal -->
+    @if (p.details?.length || p.gallery?.length) {
+      <button
+        type="button"
+        (click)="open.emit(p)"
+        class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-white transition"
+      >
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 bg-black/20">
+          +
+        </span>
+        Ver más
+      </button>
     }
-  </ul>
-
-  <!-- ✅ Ver más abre modal -->
-  @if (p.details?.length || p.gallery?.length) {
-    <button
-      type="button"
-      (click)="open.emit(p)"
-      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-white transition"
-    >
-      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 bg-black/20">
-        +
-      </span>
-      Ver más
-    </button>
-  }
+  </div>
 
   <!-- Tags -->
   <div class="mt-5 flex flex-wrap gap-2">
