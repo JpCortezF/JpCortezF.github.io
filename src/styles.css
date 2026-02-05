@@ -376,6 +376,123 @@ cursor: url("/cursor-pointer.svg") 24 24, pointer;
   border-color: rgba(255,255,255,0.15);
 }
 
+.scroll-top{
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 999;
+
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(0,0,0,0.40);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(168,85,247,0.45);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.45);
+
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  cursor: pointer;
+
+  /* Animación de entrada */
+  animation: scrollTopIn 160ms ease both;
+}
+
+@keyframes scrollTopIn{
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.scroll-top:hover{
+  transform: translateY(-4px);
+  border-color: rgba(168,85,247,0.85);
+  box-shadow:
+    0 0 18px rgba(168,85,247,0.35),
+    0 15px 40px rgba(0,0,0,0.6);
+}
+
+.scroll-top:active{
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Ring */
+.scroll-ring{
+  position: absolute;
+  inset: 0;
+  width: 54px;
+  height: 54px;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.ring-bg{
+  stroke: rgba(255,255,255,0.10);
+  stroke-width: 3.2;
+  fill: transparent;
+}
+
+.ring-fg{
+  stroke: rgba(168,85,247,0.95);
+  stroke-width: 3.2;
+  fill: transparent;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(168,85,247,0.45));
+}
+
+/* Icon */
+.scroll-icon{
+  width: 22px;
+  height: 22px;
+  color: rgba(255,255,255,0.90);
+  position: relative;
+  z-index: 1;
+}
+
+/* Glow animado alrededor del borde (conic + mask) */
+.scroll-top::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 72%,
+    rgba(168,85,247,0.95) 82%,
+    rgba(236,72,153,0.65) 92%,
+    transparent 100%
+  );
+  animation: spinGlow 2.8s linear infinite;
+  opacity: .75;
+
+  /* Compatibilidad: webkit-mask + mask */
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 1px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 1px)
+  );
+
+  pointer-events: none;
+}
+
+@keyframes spinGlow{ to { transform: rotate(360deg); } }
+
+/* Respeta usuarios con reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .scroll-top::before{ animation: none; }
+  .scroll-top{ animation: none; }
+}
+
 @keyframes spinBorder{
   to { transform: rotate(360deg); }
 }

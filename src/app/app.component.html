@@ -8,7 +8,7 @@
 
   <app-navbar></app-navbar>
 
-  <main class="px-6 max-w-5xl mx-auto">
+<main class="px-6 max-w-5xl mx-auto">
   <section id="hero" class="min-h-screen flex items-center justify-center">
     <app-hero></app-hero>
   </section>
@@ -33,4 +33,30 @@
     <app-contact></app-contact>
   </section>
 </main>
+@if(showScrollTop){
+  <button
+    class="scroll-top"
+    type="button"
+    (click)="scrollToHero()"
+    aria-label="Volver al inicio"
+    >
+    <!-- progreso (anillo) -->
+    <svg class="scroll-ring" viewBox="0 0 44 44" aria-hidden="true">
+      <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+      <circle
+        class="ring-fg"
+        cx="22"
+        cy="22"
+        r="18"
+        [style.stroke-dasharray]="ringCircumference"
+        [style.stroke-dashoffset]="ringDashoffset"
+      ></circle>
+    </svg>
+  
+    <!-- ícono chevron -->
+    <svg class="scroll-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  }
 </div>

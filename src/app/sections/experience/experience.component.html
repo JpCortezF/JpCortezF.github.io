@@ -4,28 +4,47 @@
 
   <div class="space-y-5">
     @for (exp of experiences; track exp.role + exp.company) {
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-white/20 transition">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <article
+        class="rounded-2xl border border-white/10 bg-white/5 p-6
+              hover:border-white/20 transition relative overflow-hidden">
+        
+        <span class="absolute left-0 top-0 h-full w-0.75 bg-linear-to-b from-violet-500 to-transparent opacity-70"></span>
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
           <div>
-            <h3 class="text-white font-semibold text-lg">{{ exp.role }}</h3>
-            <p class="text-white/70">{{ exp.company }}</p>
+            <h3 class="text-white font-semibold text-lg tracking-tight">
+              {{ exp.role }}
+            </h3>
+
+            <p class="text-white/50 text-sm">
+              {{ exp.company }}
+            </p>
           </div>
-          <span class="text-white/50 text-sm">{{ exp.period }}</span>
+
+          <span class="text-white/40 text-sm shrink-0">
+            {{ exp.period }}
+          </span>
         </div>
 
-        <ul class="mt-4 space-y-2 text-white/70 list-disc pl-5">
+        <ul class="space-y-2 text-white/70 list-disc pl-5 leading-relaxed">
           @for (b of exp.bullets; track b) {
             <li>{{ b }}</li>
           }
         </ul>
 
-        <div class="mt-4 space-y-2 text-white/70 list-disc pl-5">
-          @if (exp.url) {
-            <a href="{{ exp.url }}" target="_blank" class="text-sm text-blue-400 hover:text-blue-300 transition">
-              Ver sitio web
-            </a>
-          }
-        </div>
+        @if (exp.url) {
+          <a
+            [href]="exp.url"
+            target="_blank"
+            class="inline-flex items-center gap-2 mt-4
+                  text-sm font-semibold text-violet-400 hover:text-violet-300 transition"
+          >
+            Ver sitio →
+          </a>
+        }
+
+        <!-- Tags -->
         <div class="mt-5 flex flex-wrap gap-2">
           @for (t of exp.tags; track t) {
             <span class="text-xs text-white/70 border border-white/10 bg-black/20 px-2.5 py-1 rounded-full">
@@ -33,6 +52,7 @@
             </span>
           }
         </div>
+
       </article>
     }
   </div>
