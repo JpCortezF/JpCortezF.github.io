@@ -124,15 +124,15 @@ export class ProjectsComponent {
   projects: Project[] = [
     {
       name: 'The Last Dance - Restaurant',
-      description: 'App mobile full-stack para gestión de restaurant.',
+      description: 'Aplicación mobile full-stack para gestión operativa de restaurantes en tiempo real.',
       coverImage: '/the_last_dance.webp',
       coverPos: 'center 20%',
-      gallery: ['/the_last_dance.webp'],
+      gallery: ['/the_last_dance.webp', 'admin.png', 'bienvenido.png', 'mesa_confirmada.jpg', 'menu.jpg', 'carrito.png', 'pedido_en_mesa.png', 'chat_mesa.jpg', 'delivery.jpg', 'en_camino.jpg', 'repartidor_llego.jpg', 'encuesta.jpg', 'graficos.jpg'],
       bullets: [
-        'Backend + DB en Supabase (PostgreSQL) + storage',
-        'Tiempo real con Socket.io',
-        'QR para mesas y autocompletado por DNI',
-        'Sistema de roles y permisos'
+        'Sistema full-stack mobile para operación de restaurante en tiempo real',
+        'Sincronización instantánea de pedidos y estados con arquitectura event-driven',
+        'Flujos optimizados con QR de mesa y autocompletado de identidad',
+        'Gestión multiusuario con roles y permisos desacoplados'
       ],
       details: [
         'Arquitectura full-stack con backend + base de datos en Supabase (PostgreSQL) y storage.',
@@ -168,7 +168,56 @@ export class ProjectsComponent {
       isMobile: true,
       expanded: false,
       tags: ['React Native', 'TypeScript', 'Supabase', 'Socket.io', 'Express'],
+      liveUrl: 'https://www.youtube.com/playlist?list=PLwNluoTBkh_4kQ6Sn-1aLSRbdmw5-HTfD',
       repoUrl: 'https://github.com/JpCortezF/TheLastDance-2025',
+    },
+    {
+      name: 'E-Commerce Admin System — ASP.NET',
+      description: 'Aplicación web e-commerce desarrollada en ASP.NET con panel administrativo, gestión de ventas y roles de usuario.',
+      coverImage: '/e_commerce.webp',
+      gallery: ['e_commerce.webp'],
+      bullets: [
+        'Gestión completa de productos, categorías y ventas',
+        'Autenticación con roles (usuario / administrador)',
+        'Dashboard con métricas y reportes comerciales',
+        'Integración SQL Server + Firebase para gestión de usuarios'
+      ],
+      details: [
+        'Arquitectura MVC en ASP.NET con separación de servicios e interfaces.',
+        'CRUD completo de productos con carga y validación de imágenes.',
+        'Sistema de ventas con historial, búsqueda y reportes por fecha.',
+        'Generación de PDFs de ventas mediante DinkToPdf.',
+        'Dashboards con gráficos de métricas de productos y ventas.',
+        'Gestión de usuarios con Firebase y sincronización con SQL Server.',
+        'Restablecimiento de contraseña con envío de emails HTML.',
+        'Uso de AutoMapper para mapear Models y ViewModels.',
+        'Interacciones AJAX y DataTables para UX dinámica.',
+      ],
+      pitch: 'Proyecto de e-commerce orientado a comprender arquitectura web completa en .NET: autenticación, panel administrativo, gestión comercial y reporting. Fue clave para consolidar bases en backend empresarial, separación de responsabilidades y modelado de datos.',
+      
+      highlights: [
+        'Panel administrativo con métricas y visualización de ventas',
+        'Generación automática de documentos PDF',
+        'Roles dinámicos que alteran navegación y permisos',
+        'Experiencia AJAX interactiva sin recarga de página',
+      ],
+
+      challenges: [
+        'Integrar Firebase con SQL Server para gestión de usuarios',
+        'Mantener coherencia entre Models y ViewModels',
+        'Diseñar flujo de ventas completo sin inconsistencias',
+        'Organizar controllers y servicios a medida que crecía el proyecto',
+      ],
+
+      learnings: [
+        'Entendí patrones MVC y separación de capas en aplicaciones reales',
+        'Gané experiencia en backend empresarial con .NET',
+        'Aprendí integración entre múltiples fuentes de datos',
+        'Mejoré en diseño de interfaces administrativas complejas',
+      ],
+
+      tags: ['ASP.NET', 'C#', 'SQL Server', 'Firebase', 'MVC', 'AutoMapper',],
+      repoUrl: 'https://github.com/JpCortezF/SistemaDeVenta',
     },
     {
       name: 'Toque Gourmet',
