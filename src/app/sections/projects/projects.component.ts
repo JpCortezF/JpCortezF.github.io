@@ -19,6 +19,7 @@ type Project = {
   highlights?: string[];
   challenges?: string[];
   learnings?: string[];
+  roadmap?: string[];
   isMobile?: boolean;
 };
 
@@ -123,6 +124,57 @@ export class ProjectsComponent {
 
   projects: Project[] = [
     {
+      name: 'CoreGamer - E-Commerce API (ASP.NET Core)',
+      description: 'API RESTful para administración de productos, usuarios y carrito en una plataforma e-commerce.',
+      coverImage: '/CoreGamer.webp',
+      gallery: ['/CoreGamer.webp'],
+      bullets: [
+        'ASP.NET Core + Entity Framework Core + PostgreSQL',
+        'Endpoints asíncronos con DTOs y proyecciones optimizadas',
+        'Relaciones 1:N y N:M modeladas con EF Core',
+        'Docker + documentación OpenAPI / Scalar'
+      ],
+      pitch:
+        'CoreGamer es una API backend que desarrollé para gestionar la lógica central de una plataforma de comercio electrónico. El foco del proyecto estuvo en construir una base robusta y escalable: modelado relacional claro, separación de responsabilidades, respuestas optimizadas y una estructura preparada para crecer hacia autenticación, pagos y manejo de archivos. Más que resolver solo un CRUD, busqué diseñar una API mantenible, segura y pensada para integrarse con cualquier frontend.',
+      highlights: [
+        'Arquitectura backend orientada a escalabilidad, separación de capas y mantenimiento.',
+        'Programación 100% asíncrona para soportar mejor concurrencia y operaciones no bloqueantes.',
+        'Uso estricto de DTOs para controlar la información expuesta y evitar fuga de datos sensibles.',
+        'Consultas optimizadas con proyecciones ligeras usando Select(), reduciendo over-fetching.',
+        'Modelado de relaciones 1:N y N:M con Entity Framework Core, incluyendo carrito de compras.',
+        'Documentación clara de la API con OpenAPI / Scalar para facilitar testing e integración.'
+      ],
+      challenges: [
+        'Diseñar entidades y relaciones relacionales que soporten tanto publicación de productos como carrito de compras.',
+        'Evitar ciclos de serialización al exponer propiedades de navegación de Entity Framework.',
+        'Optimizar respuestas HTTP para no enviar datos innecesarios ni exponer información sensible.',
+        'Mantener una estructura clara y extensible pensando desde el inicio en autenticación, pagos e imágenes.',
+        'Lograr una API consistente y bien documentada mientras el dominio seguía creciendo.'
+      ],
+      learnings: [
+        'Profundicé en diseño de APIs REST con foco en mantenibilidad y claridad de contratos.',
+        'Mejoré mi criterio para usar DTOs no solo por orden, sino también por seguridad y performance.',
+        'Gané experiencia modelando relaciones complejas con Entity Framework Core.',
+        'Entendí mejor el impacto de la serialización, los ciclos de objetos y la forma correcta de controlarlos.',
+        'Reforcé buenas prácticas de backend moderno: asincronía, documentación y despliegue containerizado.'
+      ],
+      details: [
+        'API RESTful desarrollada con ASP.NET Core y Entity Framework Core.',
+        'Persistencia en PostgreSQL con modelado relacional para usuarios, productos y carrito.',
+        'Implementación 100% asíncrona con async/await para mejorar concurrencia y evitar bloqueos.',
+        'Uso de DTOs para desacoplar la capa de datos de la capa de presentación.',
+        'Protección de datos sensibles en respuestas HTTP y optimización de payloads.',
+        'Documentación de endpoints mediante OpenAPI / Scalar.',
+        'Base de datos containerizada con Docker y volúmenes persistentes.'
+      ],
+      roadmap: [
+        'Imágenes: Ambos productos y usuarios tienen avatares y fotos de marcador de posición, preparándolo para el próximo paso de agregar URLs de imágenes, JWT y Mercado Pago: El panel de administración tiene secciones de "Pedidos" y "Configuración", listas para cuando se implemente la seguridad con Tokens y la pasarela de pagos.'
+      ],
+      expanded: false,
+      tags: ['ASP.NET Core', 'C#', 'Entity Framework Core', 'PostgreSQL', 'Docker', 'REST API'],
+      repoUrl: 'https://github.com/JpCortezF/CoreGamer'
+    },
+    {
       name: 'The Last Dance - Restaurant',
       description: 'Aplicación mobile full-stack para gestión operativa de restaurantes en tiempo real.',
       coverImage: '/the_last_dance.webp',
@@ -170,54 +222,6 @@ export class ProjectsComponent {
       tags: ['React Native', 'TypeScript', 'Supabase', 'Socket.io', 'Express'],
       liveUrl: 'https://www.youtube.com/playlist?list=PLwNluoTBkh_4kQ6Sn-1aLSRbdmw5-HTfD',
       repoUrl: 'https://github.com/JpCortezF/TheLastDance-2025',
-    },
-    {
-      name: 'E-Commerce Admin System — ASP.NET',
-      description: 'Aplicación web e-commerce desarrollada en ASP.NET con panel administrativo, gestión de ventas y roles de usuario.',
-      coverImage: '/e_commerce.webp',
-      gallery: ['e_commerce.webp'],
-      bullets: [
-        'Gestión completa de productos, categorías y ventas',
-        'Autenticación con roles (usuario / administrador)',
-        'Dashboard con métricas y reportes comerciales',
-        'Integración SQL Server + Firebase para gestión de usuarios'
-      ],
-      details: [
-        'Arquitectura MVC en ASP.NET con separación de servicios e interfaces.',
-        'CRUD completo de productos con carga y validación de imágenes.',
-        'Sistema de ventas con historial, búsqueda y reportes por fecha.',
-        'Generación de PDFs de ventas mediante DinkToPdf.',
-        'Dashboards con gráficos de métricas de productos y ventas.',
-        'Gestión de usuarios con Firebase y sincronización con SQL Server.',
-        'Restablecimiento de contraseña con envío de emails HTML.',
-        'Uso de AutoMapper para mapear Models y ViewModels.',
-        'Interacciones AJAX y DataTables para UX dinámica.',
-      ],
-      pitch: 'Proyecto de e-commerce orientado a comprender arquitectura web completa en .NET: autenticación, panel administrativo, gestión comercial y reporting. Fue clave para consolidar bases en backend empresarial, separación de responsabilidades y modelado de datos.',
-      
-      highlights: [
-        'Panel administrativo con métricas y visualización de ventas',
-        'Generación automática de documentos PDF',
-        'Roles dinámicos que alteran navegación y permisos',
-        'Experiencia AJAX interactiva sin recarga de página',
-      ],
-
-      challenges: [
-        'Integrar Firebase con SQL Server para gestión de usuarios',
-        'Mantener coherencia entre Models y ViewModels',
-        'Diseñar flujo de ventas completo sin inconsistencias',
-        'Organizar controllers y servicios a medida que crecía el proyecto',
-      ],
-
-      learnings: [
-        'Entendí patrones MVC y separación de capas en aplicaciones reales',
-        'Gané experiencia en backend empresarial con .NET',
-        'Aprendí integración entre múltiples fuentes de datos',
-        'Mejoré en diseño de interfaces administrativas complejas',
-      ],
-
-      tags: ['ASP.NET', 'C#', 'SQL Server', 'Firebase', 'MVC', 'AutoMapper',],
-      repoUrl: 'https://github.com/JpCortezF/SistemaDeVenta',
     },
     {
       name: 'Toque Gourmet',
@@ -307,54 +311,6 @@ export class ProjectsComponent {
       liveUrl: 'https://clinica-online-psi.vercel.app/',
     },
     {
-      name: 'Simulador SUBE',
-      description: 'Aplicación de escritorio que simula un sistema de gestión de viajes tipo SUBE, con roles y persistencia en base de datos.',
-      coverImage: '/sube.webp',
-      gallery: ['/sube.webp', 'inicio_sube.png', 'registro_sube.png', 'home_sube.png', 'tarjeta_sube.png', 'viaje_sube.gif', 'tarifa-social_sube.png'],
-      bullets: [
-        'Roles: Usuario y Administrador.',
-        'Carga de saldo y gestión de tarjeta.',
-        'Realización de viajes con proceso asíncrono.',
-        'Historial de viajes y reportes (pérdida/robo/rotura).',
-        'Gestión de tarifas sociales (trámites y validaciones).',
-        'Persistencia completa con MySQL.',
-      ],
-      pitch:
-        'Simulador SUBE es una aplicación de escritorio que desarrollé como trabajo final, inspirada en un sistema real de gestión de viajes tipo SUBE en Argentina. El objetivo fue construir una solución completa y consistente, donde un usuario pueda administrar su tarjeta, cargar saldo, realizar viajes y consultar historial, mientras que un administrador gestiona usuarios, trámites y reportes. Me enfoqué especialmente en la lógica de negocio y en la persistencia de datos, asegurando que cada acción quede registrada y validada correctamente.',
-
-      highlights: [
-        'Roles diferenciados Usuario / Administrador, con permisos y acciones específicas para cada perfil.',
-        'Carga de saldo, gestión de tarjeta y control de estado (activa / reportada).',
-        'Viajes con proceso asíncrono, simulando un flujo real sin bloquear la interfaz.',
-        'Historial completo con persistencia en MySQL, listo para reportes y auditoría.',
-        'Gestión de trámites (tarifa social, reportes de pérdida/robo/rotura) con seguimiento de estado.'
-      ],
-
-      challenges: [
-        'Diseñar un modelo de datos que soporte trámites + estados + historial sin inconsistencias.',
-        'Mantener la UI clara en WinForms, separando pantallas y flujos por rol.',
-        'Implementar procesos asíncronos sin que la app quede “congelada” ni pierda integridad.',
-        'Aplicar validaciones realistas: evitar viajes sin saldo, bloquear operaciones con tarjeta reportada, etc.'
-      ],
-
-      learnings: [
-        'Mejoré mi capacidad de modelar reglas de negocio reales y su impacto en base de datos.',
-        'Gané experiencia construyendo sistemas con roles y permisos, pensando en “quién puede hacer qué”.',
-        'Aprendí a diseñar un flujo robusto y mantenible en una app desktop conectada a MySQL.',
-        'Reforcé buenas prácticas como consistencia de estados y persistencia confiable.'
-      ],
-      details: [
-        'Aplicación desktop con roles Usuario/Administrador y permisos por perfil.',
-        'Carga de saldo, reporte de tarjeta (pérdida/robo/rotura) y seguimiento del estado.',
-        'Viajes con proceso asíncrono y registro automático en historial.',
-        'Gestión de tarifas sociales mediante trámites y validaciones.',
-        'Persistencia y consultas en MySQL para asegurar integridad de datos.',
-      ],
-      expanded: false,
-      tags: ['C#', 'WinForms', 'MySQL', 'Desktop'],
-      repoUrl: 'https://github.com/JpCortezF/Sistema-SUBE',
-    },
-    {
       name: 'La Comanda (Backend)',
       description: 'API REST para gestión integral de restaurant: empleados, mesas, productos y pedidos con reglas de negocio.',
       coverImage: '/la_comanda.webp',
@@ -402,6 +358,102 @@ export class ProjectsComponent {
       tags: ['PHP', 'Slim v4', 'MySQL', 'PDO', 'REST API'],
       expanded: false,
       repoUrl: 'https://github.com/JpCortezF/API-Restaurant',
+    },
+    {
+      name: 'E-Commerce Admin System — ASP.NET',
+      description: 'Aplicación web e-commerce desarrollada en ASP.NET con panel administrativo, gestión de ventas y roles de usuario.',
+      coverImage: '/e_commerce.webp',
+      gallery: ['e_commerce.webp'],
+      bullets: [
+        'Gestión completa de productos, categorías y ventas',
+        'Autenticación con roles (usuario / administrador)',
+        'Dashboard con métricas y reportes comerciales',
+        'Integración SQL Server + Firebase para gestión de usuarios'
+      ],
+      details: [
+        'Arquitectura MVC en ASP.NET con separación de servicios e interfaces.',
+        'CRUD completo de productos con carga y validación de imágenes.',
+        'Sistema de ventas con historial, búsqueda y reportes por fecha.',
+        'Generación de PDFs de ventas mediante DinkToPdf.',
+        'Dashboards con gráficos de métricas de productos y ventas.',
+        'Gestión de usuarios con Firebase y sincronización con SQL Server.',
+        'Restablecimiento de contraseña con envío de emails HTML.',
+        'Uso de AutoMapper para mapear Models y ViewModels.',
+        'Interacciones AJAX y DataTables para UX dinámica.',
+      ],
+      pitch: 'Proyecto de e-commerce orientado a comprender arquitectura web completa en .NET: autenticación, panel administrativo, gestión comercial y reporting. Fue clave para consolidar bases en backend empresarial, separación de responsabilidades y modelado de datos.',
+      
+      highlights: [
+        'Panel administrativo con métricas y visualización de ventas',
+        'Generación automática de documentos PDF',
+        'Roles dinámicos que alteran navegación y permisos',
+        'Experiencia AJAX interactiva sin recarga de página',
+      ],
+
+      challenges: [
+        'Integrar Firebase con SQL Server para gestión de usuarios',
+        'Mantener coherencia entre Models y ViewModels',
+        'Diseñar flujo de ventas completo sin inconsistencias',
+        'Organizar controllers y servicios a medida que crecía el proyecto',
+      ],
+
+      learnings: [
+        'Entendí patrones MVC y separación de capas en aplicaciones reales',
+        'Gané experiencia en backend empresarial con .NET',
+        'Aprendí integración entre múltiples fuentes de datos',
+        'Mejoré en diseño de interfaces administrativas complejas',
+      ],
+
+      tags: ['ASP.NET', 'C#', 'SQL Server', 'Firebase', 'MVC', 'AutoMapper',],
+      repoUrl: 'https://github.com/JpCortezF/SistemaDeVenta',
+    },
+    {
+      name: 'Simulador SUBE',
+      description: 'Aplicación de escritorio que simula un sistema de gestión de viajes tipo SUBE, con roles y persistencia en base de datos.',
+      coverImage: '/sube.webp',
+      gallery: ['/sube.webp', 'inicio_sube.png', 'registro_sube.png', 'home_sube.png', 'tarjeta_sube.png', 'viaje_sube.gif', 'tarifa-social_sube.png'],
+      bullets: [
+        'Roles: Usuario y Administrador.',
+        'Carga de saldo y gestión de tarjeta.',
+        'Realización de viajes con proceso asíncrono.',
+        'Historial de viajes y reportes (pérdida/robo/rotura).',
+        'Gestión de tarifas sociales (trámites y validaciones).',
+        'Persistencia completa con MySQL.',
+      ],
+      pitch:
+        'Simulador SUBE es una aplicación de escritorio que desarrollé como trabajo final, inspirada en un sistema real de gestión de viajes tipo SUBE en Argentina. El objetivo fue construir una solución completa y consistente, donde un usuario pueda administrar su tarjeta, cargar saldo, realizar viajes y consultar historial, mientras que un administrador gestiona usuarios, trámites y reportes. Me enfoqué especialmente en la lógica de negocio y en la persistencia de datos, asegurando que cada acción quede registrada y validada correctamente.',
+
+      highlights: [
+        'Roles diferenciados Usuario / Administrador, con permisos y acciones específicas para cada perfil.',
+        'Carga de saldo, gestión de tarjeta y control de estado (activa / reportada).',
+        'Viajes con proceso asíncrono, simulando un flujo real sin bloquear la interfaz.',
+        'Historial completo con persistencia en MySQL, listo para reportes y auditoría.',
+        'Gestión de trámites (tarifa social, reportes de pérdida/robo/rotura) con seguimiento de estado.'
+      ],
+
+      challenges: [
+        'Diseñar un modelo de datos que soporte trámites + estados + historial sin inconsistencias.',
+        'Mantener la UI clara en WinForms, separando pantallas y flujos por rol.',
+        'Implementar procesos asíncronos sin que la app quede “congelada” ni pierda integridad.',
+        'Aplicar validaciones realistas: evitar viajes sin saldo, bloquear operaciones con tarjeta reportada, etc.'
+      ],
+
+      learnings: [
+        'Mejoré mi capacidad de modelar reglas de negocio reales y su impacto en base de datos.',
+        'Gané experiencia construyendo sistemas con roles y permisos, pensando en “quién puede hacer qué”.',
+        'Aprendí a diseñar un flujo robusto y mantenible en una app desktop conectada a MySQL.',
+        'Reforcé buenas prácticas como consistencia de estados y persistencia confiable.'
+      ],
+      details: [
+        'Aplicación desktop con roles Usuario/Administrador y permisos por perfil.',
+        'Carga de saldo, reporte de tarjeta (pérdida/robo/rotura) y seguimiento del estado.',
+        'Viajes con proceso asíncrono y registro automático en historial.',
+        'Gestión de tarifas sociales mediante trámites y validaciones.',
+        'Persistencia y consultas en MySQL para asegurar integridad de datos.',
+      ],
+      expanded: false,
+      tags: ['C#', 'WinForms', 'MySQL', 'Desktop'],
+      repoUrl: 'https://github.com/JpCortezF/Sistema-SUBE',
     }
   ];
 }
