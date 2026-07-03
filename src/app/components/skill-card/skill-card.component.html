@@ -1,4 +1,18 @@
-<div class="skill-tile">
-  <img [src]="iconUrl" [alt]="name" class="skill-icon" />
-  <span class="skill-name">{{ name }}</span>
+<div 
+  class="group relative flex flex-col items-center justify-center gap-3 p-4 bg-black/40 backdrop-blur-md transition-all duration-300 ease-out h-[120px] w-full cyber-node"
+  [style.--hover-color]="color"
+  style="
+    --glow: 0 0 20px -5px var(--hover-color), inset 0 0 10px -5px var(--hover-color);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  "
+  onmouseenter="this.style.boxShadow=this.style.getPropertyValue('--glow'); this.style.transform='scale(1.05) translateY(-6px) translateZ(10px)'"
+  onmouseleave="this.style.boxShadow=''; this.style.transform='scale(1) translateY(0) translateZ(0)'"
+>
+  <!-- Borde falso cyber (pseudo-elemento para clip-path border) -->
+  <div class="absolute inset-0 bg-white/10 transition-colors duration-300 group-hover:bg-[var(--hover-color)]" style="clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);">
+    <div class="absolute inset-[1px] bg-black/80" style="clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);"></div>
+  </div>
+
+  <img [src]="iconUrl" [alt]="name" class="w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-md relative z-10" />
+  <span class="text-xs font-mono font-semibold tracking-wide text-white/70 group-hover:text-white transition-colors duration-300 relative z-10">{{ name }}</span>
 </div>

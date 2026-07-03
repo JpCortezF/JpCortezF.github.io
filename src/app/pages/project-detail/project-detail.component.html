@@ -1,0 +1,230 @@
+@if (project) {
+<main class="min-h-screen relative overflow-hidden pt-32 pb-24 px-6 md:px-12 w-full max-w-7xl mx-auto z-10">
+  
+  <!-- Fondo cósmico local -->
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-cyan-900/10 via-black to-purple-900/10 blur-3xl"></div>
+
+  <!-- Navegación -->
+  <div class="mb-12">
+    <a [routerLink]="['/']" fragment="projects"
+       class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group">
+      <span class="group-hover:-translate-x-1 transition-transform">&larr;</span> 
+      Volver a Proyectos
+    </a>
+  </div>
+
+  <!-- Header del Proyecto HUD -->
+  <header class="mb-16">
+    <p class="text-cyan-400 text-sm tracking-widest uppercase mb-3 font-mono">
+      > DOSSIER.OPEN("{{ project.id }}")
+    </p>
+    <h1 class="text-4xl md:text-6xl font-hero font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-300 to-blue-500 tracking-wide mb-6 relative">
+      {{ project.name }}
+      <span class="absolute inset-0 bg-gradient-to-r from-white via-cyan-300 to-blue-500 blur-2xl opacity-10 -z-10"></span>
+    </h1>
+
+    <div class="flex flex-wrap gap-2 mb-8">
+      @for (t of project.tags; track t) {
+        <span class="text-xs font-mono text-cyan-300 border border-cyan-500/30 bg-cyan-950/40 px-3 py-1.5 rounded-md shadow-[0_0_10px_rgba(34,211,238,0.15)]">
+          {{ t }}
+        </span>
+      }
+    </div>
+
+    <!-- Botones de Acción Glassmorphism -->
+    <div class="flex flex-wrap items-center gap-4">
+      @if (project.liveUrl) {
+        <a [href]="project.liveUrl"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center justify-center rounded-xl px-6 py-3
+                  text-sm font-semibold text-white bg-white/5 backdrop-blur-md 
+                  border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] transition-all duration-300">
+          VER DEMO
+        </a>
+      }
+      @if (project.repoUrl) {
+        <a [href]="project.repoUrl"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center justify-center rounded-xl px-6 py-3
+                  text-sm font-semibold text-white bg-white/5 backdrop-blur-md 
+                  border border-purple-500/30 hover:bg-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all duration-300">
+          VER CÓDIGO
+        </a>
+      }
+    </div>
+  </header>
+
+  <!-- BENTO GRID LAYOUT (12 Columnas para mayor flexibilidad) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- COLUMNA 1: Visual Viewer & Pitch (Main Stage) -->
+    <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+      
+      <!-- Holographic Viewer & Filmstrip -->
+      <div class="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm shadow-2xl p-4 md:p-6 hover:border-cyan-500/30 transition-colors flex flex-col gap-4 group">
+        
+        <!-- Main Stage (Imagen Activa) -->
+        <div class="rounded-xl overflow-hidden border border-white/5 bg-black/40 relative group/main cursor-zoom-in"
+             (click)="openLightbox()">
+             
+          <!-- Fondo difuminado para rellenar espacios -->
+          <img [src]="activeImage" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 scale-110 -z-10" />
+
+          <img [src]="activeImage" 
+               [alt]="project.name + ' preview'"
+               class="max-h-[500px] w-full object-contain mx-auto transition-all duration-300 saturate-105 group-hover/main:scale-[1.02]" />
+          
+          <div class="absolute inset-0 border border-cyan-500/20 mix-blend-overlay pointer-events-none"></div>
+          
+          <!-- Botón de acción HUD discreto (Esquina superior derecha) -->
+          <button type="button" class="absolute top-4 right-4 opacity-0 group-hover/main:opacity-100 transition-opacity duration-300 backdrop-blur-md bg-black/40 border border-white/20 text-cyan-400 p-2 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+          </button>
+        </div>
+        
+        <!-- Filmstrip / Carrusel de Miniaturas -->
+        @if (project.gallery && project.gallery.length > 1) {
+          <div class="flex gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x pt-2">
+            @for (img of project.gallery; track img) {
+              <button 
+                type="button"
+                (click)="setActiveImage(img)"
+                class="relative h-16 md:h-20 aspect-video rounded-lg overflow-hidden shrink-0 snap-start border-2 transition-all duration-300 focus:outline-none bg-neutral-900/80 flex items-center justify-center"
+                [ngClass]="img === activeImage ? 'border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] scale-105' : 'border-white/10 opacity-60 hover:opacity-100'"
+              >
+                <img [src]="img" class="w-full h-full object-contain p-1 pointer-events-none" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Pitch / Descripción larga -->
+      <div class="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 md:p-8">
+        <h2 class="text-xl text-white font-semibold mb-4 font-hero flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(34,211,238,1)]"></span>
+          Sinopsis del Proyecto
+        </h2>
+        <p class="text-white/80 leading-relaxed font-sans">
+          {{ project.pitch || project.description }}
+        </p>
+      </div>
+
+    </div>
+
+    <!-- COLUMNA 2: Specs & Highlights -->
+    <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
+      
+      <!-- Panel de Especificaciones (Highlights) -->
+      <div class="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 md:p-8 hover:border-purple-500/30 transition-colors">
+        <h2 class="text-xl text-white font-semibold mb-6 font-hero flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,1)]"></span>
+          Specs & Highlights
+        </h2>
+        <ul class="space-y-4">
+          @for (h of project.highlights; track h) {
+            <li class="flex items-start gap-3 text-white/75 text-sm md:text-base">
+              <span class="text-purple-400 mt-1">▹</span>
+              <span>{{ h }}</span>
+            </li>
+          }
+        </ul>
+        
+        @if (project.details?.length) {
+          <div class="mt-8 pt-8 border-t border-white/10">
+             <h3 class="text-sm text-white/50 uppercase tracking-widest font-mono mb-4">Detalles Técnicos</h3>
+             <ul class="space-y-3">
+               @for (d of project.details; track d) {
+                 <li class="text-white/60 text-sm flex items-start gap-2">
+                   <span class="text-cyan-500/50 mt-1">-</span>
+                   {{ d }}
+                 </li>
+               }
+             </ul>
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bitácora de Ingeniería (Desafíos y Aprendizajes) -->
+  @if (project.challenges?.length || project.learnings?.length) {
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-6">
+      
+      <!-- Desafíos -->
+      @if (project.challenges?.length) {
+        <div class="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 md:p-8 hover:border-red-500/30 transition-colors h-full">
+          <h2 class="text-xl text-white font-semibold mb-6 font-hero flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,1)]"></span>
+            Desafíos Técnicos
+          </h2>
+          <ul class="space-y-4">
+            @for (c of project.challenges; track c) {
+              <li class="flex items-start gap-3 text-white/75 text-sm md:text-base">
+                <span class="text-red-400 mt-1">✕</span>
+                <span>{{ c }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Aprendizajes -->
+      @if (project.learnings?.length) {
+        <div class="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 md:p-8 hover:border-green-500/30 transition-colors h-full">
+          <h2 class="text-xl text-white font-semibold mb-6 font-hero flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,1)]"></span>
+            Aprendizajes Clave
+          </h2>
+          <ul class="space-y-4">
+            @for (l of project.learnings; track l) {
+              <li class="flex items-start gap-3 text-white/75 text-sm md:text-base">
+                <span class="text-green-400 mt-1">✓</span>
+                <span>{{ l }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  }
+  
+  <!-- LIGHTBOX / FULLSCREEN VIEWER -->
+  @if (isLightboxOpen) {
+    <div class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-center items-center p-4 md:p-12 animate-fade-in" 
+         (click)="closeLightbox()">
+      
+      <!-- Close button -->
+      <button class="absolute top-6 right-6 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full border border-white/20 transition-all z-50 shadow-lg"
+              (click)="closeLightbox()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Nav buttons -->
+      @if (project.gallery && project.gallery.length > 1) {
+        <button class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full border border-white/20 transition-all z-50 shadow-lg"
+                (click)="$event.stopPropagation(); prevImage()">
+          <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full border border-white/20 transition-all z-50 shadow-lg"
+                (click)="$event.stopPropagation(); nextImage()">
+          <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      }
+
+      <!-- Main Image Full -->
+      <img [src]="activeImage" class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-[0_0_40px_rgba(34,211,238,0.2)] border border-white/10" (click)="$event.stopPropagation()" />
+      
+      <!-- Indicador -->
+      @if (project.gallery && project.gallery.length > 1) {
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10 text-white/70 text-sm font-mono tracking-widest z-50 shadow-lg">
+           {{ project.gallery.indexOf(activeImage) + 1 }} / {{ project.gallery.length }}
+        </div>
+      }
+    </div>
+  }
+</main>
+}

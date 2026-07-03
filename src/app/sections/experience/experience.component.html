@@ -1,35 +1,48 @@
-<div class="max-w-5xl mx-auto">
-  <p class="text-white/50 text-sm tracking-wide mb-2">Experiencia</p>
-  <h2 class="text-2xl md:text-3xl font-bold text-white mb-10">Experiencia Laboral</h2>
+<div class="max-w-7xl mx-auto w-full relative z-10">
+  <p class="text-cyan-400 text-sm tracking-widest uppercase mb-2 font-mono">
+    > TIMELINE.INIT()
+  </p>
+  <h2 class="text-3xl md:text-5xl font-bold text-white mb-16 font-hero tracking-wide">
+    Experiencia Laboral
+  </h2>
 
-  <div class="space-y-5">
+  <!-- Contenedor relativo para la línea de tiempo -->
+  <div class="relative pl-6 md:pl-10 space-y-12">
+    <!-- Línea conectora (Fibra Óptica) -->
+    <div class="absolute left-0 top-2 bottom-0 w-1 bg-gradient-to-b from-cyan-500 via-purple-600 to-transparent rounded-full shadow-[0_0_10px_rgba(34,211,238,0.6)]"></div>
+
     @for (exp of experiences; track exp.role + exp.company) {
       <article
-        class="rounded-2xl border border-white/10 bg-white/5 p-6
-              hover:border-white/20 transition relative overflow-hidden">
+        class="relative rounded-xl border border-white/10 bg-white/[0.02] p-6 md:p-8
+               backdrop-blur-sm hover:border-cyan-500/40 hover:bg-white/[0.04] transition-all duration-300">
         
-        <span class="absolute left-0 top-0 h-full w-0.75 bg-linear-to-b from-violet-500 to-transparent opacity-70"></span>
+        <!-- Nodo de la línea de tiempo -->
+        <div class="absolute -left-6 md:-left-10 top-8 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,1)] border-2 border-black -translate-x-1/2"></div>
 
         <!-- Header -->
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
           <div>
-            <h3 class="text-white font-semibold text-lg tracking-tight">
+            <h3 class="text-white font-bold text-xl md:text-2xl tracking-wide font-hero">
               {{ exp.role }}
             </h3>
 
-            <p class="text-white/50 text-sm">
+            <p class="text-cyan-400/80 font-mono text-sm tracking-widest uppercase mt-1">
               {{ exp.company }}
             </p>
           </div>
 
-          <span class="text-white/40 text-sm shrink-0">
+          <!-- Badge Fecha -->
+          <span class="inline-flex text-cyan-300 bg-cyan-950/40 border border-cyan-500/30 font-mono text-xs px-3 py-1.5 rounded-md shrink-0 self-start shadow-[0_0_10px_rgba(34,211,238,0.2)]">
             {{ exp.period }}
           </span>
         </div>
 
-        <ul class="space-y-2 text-white/70 list-disc pl-5 leading-relaxed">
+        <ul class="space-y-3 text-white/80 list-none pl-0 leading-relaxed font-sans text-sm md:text-base">
           @for (b of exp.bullets; track b) {
-            <li>{{ b }}</li>
+            <li class="relative pl-5">
+              <span class="absolute left-0 top-2 w-1.5 h-1.5 rounded-full bg-cyan-500/60"></span>
+              {{ b }}
+            </li>
           }
         </ul>
 
@@ -37,17 +50,18 @@
           <a
             [href]="exp.url"
             target="_blank"
-            class="inline-flex items-center gap-2 mt-4
-                  text-sm font-semibold text-violet-400 hover:text-violet-300 transition"
+            class="inline-flex items-center gap-2 mt-6
+                  text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors"
           >
-            {{ exp.urlLabel || 'Ver sitio →' }}
+            <span class="border-b border-purple-500/30 pb-0.5">{{ exp.urlLabel || 'VER SISTEMA_EXTERNO' }}</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
           </a>
         }
 
         <!-- Tags -->
-        <div class="mt-5 flex flex-wrap gap-2">
+        <div class="mt-8 flex flex-wrap gap-2">
           @for (t of exp.tags; track t) {
-            <span class="text-xs text-white/70 border border-white/10 bg-black/20 px-2.5 py-1 rounded-full">
+            <span class="text-xs font-mono text-white/60 border border-white/5 bg-black/40 px-3 py-1.5 rounded-md hover:border-white/20 transition-colors">
               {{ t }}
             </span>
           }

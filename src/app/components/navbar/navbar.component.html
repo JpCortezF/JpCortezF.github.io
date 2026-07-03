@@ -1,24 +1,33 @@
-<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+<nav class="fixed top-6 left-6 right-6 z-[100] flex justify-between items-center pointer-events-none">
+  <!-- The logo element uses softcore scroll pattern -->
+  <div class="pointer-events-auto" id="nav-logo-container">
+    <div id="animated-logo" 
+         class="font-hero text-2xl text-white font-bold origin-left tracking-wide transition-all duration-500 ease-out"
+         [class]="isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'">
+      J.P. CORTEZ
+    </div>
+  </div>
+
   <div class="flex items-center gap-6 px-6 py-3 rounded-full
            border border-white/15 bg-black/60 backdrop-blur-md
-           shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
-    <button
-      class="text-white/70 hover:text-white transition"
-      (click)="scrollTo('about')"
+           shadow-[0_10px_30px_rgba(0,0,0,0.35)] pointer-events-auto">
+    <a
+      class="text-white/70 hover:text-white transition uppercase font-sans text-sm tracking-wider cursor-pointer"
+      [routerLink]="['/']" fragment="about"
     >
       Sobre mí
-    </button>
-    <button
-      class="text-white/70 hover:text-white transition"
-      (click)="scrollTo('projects')"
+    </a>
+    <a
+      class="text-white/70 hover:text-white transition uppercase font-sans text-sm tracking-wider cursor-pointer"
+      [routerLink]="['/']" fragment="projects"
     >
       Proyectos
-    </button>
-    <button
-      class="text-white/70 hover:text-white transition"
-      (click)="scrollTo('contact')"
+    </a>
+    <a
+      class="text-white/70 hover:text-white transition uppercase font-sans text-sm tracking-wider cursor-pointer"
+      [routerLink]="['/']" fragment="contact"
     >
       Contacto
-    </button>
+    </a>
   </div>
 </nav>

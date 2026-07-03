@@ -1,16 +1,49 @@
-<div class="max-w-5xl mx-auto">
-  <p class="text-white/50 text-sm tracking-wide mb-2">
-    Habilidades
+<div class="max-w-5xl mx-auto relative z-10 py-10">
+  <!-- Capa -1: Fondo Profundo Cyberpunk -->
+  <div class="pointer-events-none absolute inset-0 z-[-1] overflow-hidden">
+    <div class="absolute top-10 left-10 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-[100px]"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-[100px]"></div>
+  </div>
+
+  <p class="text-cyan-400 text-sm tracking-widest uppercase mb-2 font-mono">
+    > SYSTEM.MODULES.LOAD()
   </p>
 
-  <h2 class="text-2xl md:text-3xl font-bold text-white mb-10">
-    Tecnologías y Herramientas
+  <h2 class="text-3xl md:text-5xl font-bold text-white mb-12 font-hero tracking-wide">
+    Core Stack
   </h2>
 
-  <div class="grid gap-4 justify-center"
-        style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
-    @for (skill of skills; track skill.name) {
-      <app-skill-card [name]="skill.name" [iconUrl]="skill.iconUrl" />
+  <!-- Capa 0: HUD Container -->
+  <div class="space-y-12 relative z-0">
+    @for (cat of skillCategories; track cat.category; let cIndex = $index) {
+      <div class="relative">
+        
+        <!-- Línea neón divisoria superior -->
+        <div class="flex items-center gap-4 mb-6">
+          <div class="text-white/60 font-mono text-xs tracking-widest uppercase">{{ cat.category }}</div>
+          <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
+        </div>
+
+        <!-- Grilla de Nodos Tech -->
+        <div class="grid gap-4 sm:gap-6 justify-center sm:justify-start"
+             style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
+          @for (skill of cat.skills; track skill.name; let i = $index) {
+            <!-- Capa 1: Tarjetas Flotantes -->
+            <div 
+              class="cyber-node-reveal opacity-0"
+              [style.animation-delay]="((i * 100) % 2000) + 'ms'">
+              <!-- Envoltura de animación continua de flotación. Usamos style delay para que floten desincronizadas -->
+              <div class="animate-float" [style.animation-delay]="((i * 500) % 4000) + 'ms'">
+                <app-skill-card 
+                  [name]="skill.name" 
+                  [iconUrl]="skill.iconUrl" 
+                  [color]="skill.color"
+                />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
     }
   </div>
 </div>

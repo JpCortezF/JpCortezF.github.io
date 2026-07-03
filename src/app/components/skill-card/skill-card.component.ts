@@ -9,4 +9,6 @@ import { Component, Input } from '@angular/core';
 export class SkillCardComponent {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) iconUrl!: string;
+  @Input({ required: true }) color!: string;
+  @Input() isMain?: boolean = false;
 }

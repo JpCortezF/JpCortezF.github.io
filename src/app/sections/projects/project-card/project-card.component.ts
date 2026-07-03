@@ -1,22 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Project } from '../../../data/projects.data';
 
-export type Project = {
-  name: string;
-  description: string;
-  coverImage: string;
-  coverPos?: string;
-  gallery?: string[];
-  bullets: string[];
-  details?: string[];
-  tags: string[];
-  liveUrl?: string;
-  repoUrl?: string;
-  expanded?: boolean;
-  galleryIndex?: number;
-
-  pitch?: string;
-  highlights?: string[];
-};
 
 @Component({
   selector: 'app-project-card',

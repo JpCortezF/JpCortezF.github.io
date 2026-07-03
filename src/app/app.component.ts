@@ -1,22 +1,26 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HeroComponent } from './sections/hero/hero.component';
-import { AboutMeComponent } from './sections/about-me/about-me.component';
-import { SkillsComponent } from './sections/skills/skills.component';
-import { ExperienceComponent } from "./sections/experience/experience.component";
-import { ProjectsComponent } from "./sections/projects/projects.component";
-import { ContactComponent } from "./sections/contact/contact.component";
+import { PlanetGlowComponent } from "./components/planet-glow/planet-glow.component";
+
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, HeroComponent, AboutMeComponent, SkillsComponent, ExperienceComponent, ProjectsComponent, ContactComponent],
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, PlanetGlowComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'portfolio';
 
   showScrollTop = false;
+  private lenis!: Lenis;
 
   // Para el anillo de progreso
   ringCircumference = 2 * Math.PI * 18; // r=18
@@ -24,6 +28,33 @@ export class AppComponent {
 
   // Ajustá el umbral a gusto
   private showAfterPx = 320;
+
+  ngOnInit() {
+    this.lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+    });
+
+    this.lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      this.lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  ngAfterViewInit() {
+    // GSAP ScrollTrigger ya está inicializado para los demás componentes.
+    // La animación del Navbar ahora se maneja vía Softcore pattern.
+  }
+
+  ngOnDestroy() {
+    if (this.lenis) {
+      this.lenis.destroy();
+    }
+  }
 
   @HostListener('window:scroll')
   onScroll() {
@@ -41,6 +72,6 @@ export class AppComponent {
   }
 
   scrollToHero() {
-    document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

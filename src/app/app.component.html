@@ -1,38 +1,14 @@
-<div class="min-h-screen bg-[#05060a] text-white relative overflow-hidden">
-  <!-- Glow -->
-  <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-125 w-125
-              rounded-full bg-purple-500/20 blur-[120px]"></div>
+<div class="min-h-screen text-white relative overflow-hidden">
+  <!-- Progressive Blur Mask -->
+  <div class="fixed top-0 left-0 w-full h-40 z-40 pointer-events-none bg-[#050505]/30 backdrop-blur-md" 
+       style="-webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%); mask-image: linear-gradient(to bottom, black 30%, transparent 100%);"></div>
 
-  <div class="pointer-events-none absolute top-40 right-0 h-105 w-105
-              rounded-full bg-cyan-500/10 blur-[120px]"></div>
+  <!-- Glow -->
+  <app-planet-glow></app-planet-glow>
 
   <app-navbar></app-navbar>
 
-<main class="px-6 max-w-5xl mx-auto">
-  <section id="hero" class="min-h-screen flex items-center justify-center">
-    <app-hero></app-hero>
-  </section>
-
-  <section id="about" class="pt-24 pb-24 scroll-mt-28">
-    <app-about-me></app-about-me>
-  </section>
-
-  <section class="pt-24 pb-24 scroll-mt-28">
-    <app-experience></app-experience>
-  </section>
-
-  <section class="pt-24 pb-24 scroll-mt-28">
-    <app-skills></app-skills>
-  </section>
-
-  <section id="projects" class="pt-24 pb-24 scroll-mt-28">
-    <app-projects></app-projects>
-  </section>
-
-  <section id="contact" class="pt-24 pb-24 scroll-mt-28">
-    <app-contact></app-contact>
-  </section>
-</main>
+  <router-outlet></router-outlet>
 @if(showScrollTop){
   <button
     class="scroll-top"
